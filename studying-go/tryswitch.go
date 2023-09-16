@@ -6,6 +6,7 @@ package main
 
 import "fmt"
 
+// ///////////switch + for
 func main() {
 	var selection string
 	fmt.Println("Hello, choose option: 1, 2, 3")
