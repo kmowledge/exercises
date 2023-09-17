@@ -77,9 +77,13 @@ func main() { //Zescanowany int chcę umieścić w int8 <-128,127>, da się? Pr�
 
 	s2 := make([]int, 2*a)
 	s1 := make([]int, a)
-	for _, element := range make([]int, a); _<a-1;_++ {
-		s1[element] = rand.Intn(128)
-		
+
+	// for _, element := make([]int, a) {
+	// 	_ = rand.Intn(128)
+	// }
+
+	for i := 0; i < a-1; i++ {
+		s1[i] = rand.Intn(128)
 	}
 
 	fmt.Println(a, "\n", cap(s2), "\n", s1)
