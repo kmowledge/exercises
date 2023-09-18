@@ -101,16 +101,16 @@ func main() { //Zescanowany int chcę umieścić w int8 <-128,127>, da się? Pr�
 	var b string
 	switch {
 	case sum2%2 != 0:
-		b := "Sum of elements s2 is odd."
+		b = "Sum of elements s2 is odd."
 		fmt.Println(b)
 	case sum2%3 != 0:
-		b := "Sum of elements s2 is divisible by 3."
+		b = "Sum of elements s2 is divisible by 3."
 		fmt.Println(b)
 	case sum2%5 != 0:
-		b := "Sum of elements s2 is divisible by 5."
+		b = "Sum of elements s2 is divisible by 5."
 		fmt.Println(b)
 	default:
-		b := "Sum of elements s2 isn't divisible neither by 2, nor 3, nor 5. Koniec programu"
+		b = "Sum of elements s2 isn't divisible neither by 2, nor 3, nor 5. Koniec programu"
 		fmt.Println(b)
 		return
 	}
