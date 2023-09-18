@@ -66,6 +66,12 @@ import (
 //Jeśli ²(kwadrat) tej liczby będzie mniejszy od liczby podanej na początku, wydrukuj:
 //Twój input jest mniejszy od liczby zwróconej przez algorytm.
 
+// s1 := make([]int, a)
+//
+//	for i, _ := range s1 {
+//		_ = rand.Intn(128) //Tak się nie przypisuje wartości w slice.
+//		fmt.Print(s1[i])
+//	}
 func main() { //Zescanowany int chcę umieścić w int8 <-128,127>, da się? Próbowałem przez pointer.
 	var a int
 	fmt.Println("Podaj liczbę z przedziału <-127, 128>")
@@ -74,16 +80,42 @@ func main() { //Zescanowany int chcę umieścić w int8 <-128,127>, da się? Pr�
 		fmt.Println("Podana liczba jest poza przedziałem <-127, 128>. Podaj proszę inną.")
 		fmt.Scanln(&a)
 	}
-
-	s2 := make([]int, 2*a)
+	s2 := make([]int, a, 2*a) //len musi być a, żeby copy się udało,
+	//cap 2*a, żeby uniknąć memo reallocation przy append.
 	s1 := make([]int, a)
-	for _, element := range make([]int, a); _<a-1;_++ {
-		s1[element] = rand.Intn(128)
-		
+	for i := 0; i < a; i++ {
+		s1[i] = rand.Intn(128)
 	}
+	fmt.Println(s1, "\n", s2, "len(s2)==2, cap(s2)==4")
+	copy(s2, s1)
+	fmt.Println(s1, "\n", s2)
+	for i, val := range s1 {
+		s1[i] = int(float32(val) / 0.8)
+	}
+	s2 = append(s2, s1...)
+	sum2 := 0
+	for _, val := range s2 {
+		sum2 += val
+	}
+	fmt.Println(s1, "\n", s2)
+	var b string
+	switch {
+	case sum2%2 != 0:
+		b := "Sum of elements s2 is odd."
+		fmt.Println(b)
+	case sum2%3 != 0:
+		b := "Sum of elements s2 is divisible by 3."
+		fmt.Println(b)
+	case sum2%5 != 0:
+		b := "Sum of elements s2 is divisible by 5."
+		fmt.Println(b)
+	default:
+		b := "Sum of elements s2 isn't divisible neither by 2, nor 3, nor 5. Koniec programu"
+		fmt.Println(b)
+		return
+	}
+	c := new(string)
+	*c = b //c = &b -> oba przypisują adres, a wartości nie
+	fmt.Println("Drukujemy c, czyli pointer stringa b, a przedtem jego adres.", "\n", c, "\n", *c)
 
-	fmt.Println(a, "\n", cap(s2), "\n", s1)
 }
-
-// var o int
-// for;
