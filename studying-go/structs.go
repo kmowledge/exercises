@@ -2,14 +2,9 @@ package main
 
 import "fmt"
 
+// ↓↓ BASIC STRUCT OPERATIONS ↓↓
+// declare, initialize with literal, initialie pointer with new(), assign, access, compare for equality
 /*
-What a struct is and how we can declare and initialize it in our Go program.
-
-How to access or assign the data of an individual struct field.
-
-How to compare one struct with another and check for equality or inequality.
-*/
-
 // declare only
 type SomeStruct struct {
 	f1 string
@@ -32,43 +27,49 @@ func main() {
 	Inst1.f5 = append(Inst1.f5, "Added", "feature", "five", "to", "Inst1")
 	fmt.Printf("%v\n%v\n%t\n", Inst1, Inst2.f1, &Inst1 == Inst2) //access, compare
 }
+*/
 
-/*
-Want: Animal (declare feats) -> Crocodile (init default feats) -> crocTom (original feats)
-Can: Animal (declare feats) -> Crocodile (Animal) func setFeats -> instance (not working)
-Can: Animal (declare feats) -> Crocodile (Animal) var, instance.
+// ↓↓ ADVANCED STRUCT OPERATIONS ↓↓
+// nested struct, anonymous struct, anonymous field, promoted field, struct tag
+//for this exercise I don't enumerate all administrative units
 
-
-type Animal struct {
-	Genre, Class, huntedBy string
-	Eats                   []string
-	avgLifespan            int
-	Gender                 bool
+// anonymous fields //struct json tags
+type Świnoujście struct {
+	Town       string //`json: "Localization"`
+	Population int    //`json: "UserID"`
 }
 
-// type Crocodile struct {
-// 	Animal
-// }
+type Koszalin = struct { //Can't initialize anon fields (int: 22,) in literal.assign them.
+	string
+	float32
+}
 
-// default features of Crocodile(animal)
-func Crocodile() Animal {
-Animal:
-	Animal{
-		Genre:       "Crocodile",
-		Class:       "reptile",
-		Eats:        []string("fish", "birds", "mammals"),
-		huntedBy:    "human",
-		avgLifespan: 55,
-		Gender:      bool,
-	}
+type WestPom struct {
+	Szczecin string
+	Koszalin
+	Świnoujście Świnoujście //promoted fields
+}
+
+var WestPol = struct { //anonymous struct //nested struct
+	WestPom WestPom
+	Lubus   string
+	LowSil  string
+}{ //nested struct initialisation doesn't require providing innner content, just {}
+	WestPom: WestPom{Szczecin: "Szczecin", Koszalin: Koszalin{},
+		Świnoujście: Świnoujście{}},
+	Lubus:  "Lubuskie",
+	LowSil: "Dolnośląskie",
 }
 
 func main() {
-	crocTom := Crocodile() //instance of Crocodile struct
-	crocTom{
-		Gender: true,
+	var WestPom = WestPom{ //remember about '=' when you initialize
+		Szczecin:    "Szczecin",
+		Koszalin:    Koszalin{},
+		Świnoujście: Świnoujście{Town: "Świnoujście", Population: 40},
 	}
-	crocTom.Eats{"pumpkin"} //I override the default values
-	fmt.Printf("%#v", crocTom)
+	WestPom.Świnoujście.Population = 39 //standard nested struct, reassign value
+	WestPom.float32 = 106.235           //promoted fields of nested struct (declaration Koszalin empty)
+	WestPom.string = "Koszalin"
+	fmt.Printf("%#v\nAccessing promoted fields: %#v %#v\n", WestPom.Świnoujście, WestPom.string, WestPom.float32)
+	//fmt.Println("%#v", WestPom.string)
 }
-*/
