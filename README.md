@@ -1,4 +1,4 @@
 # trial-n-error
-In folder "studying-go" You will the topics I'm currently tackling on a GO course.
+In folder "studying-go" You will topics I'm currently tackling on GO course.
 
 This repository is a playground, don't expect to find it clear and well-organised.
