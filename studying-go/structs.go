@@ -62,14 +62,14 @@ var WestPol = struct { //anonymous struct //nested struct
 }
 
 func main() {
-	var WestPom = WestPom{ //remember about '=' when you initialize
+	var westpom = WestPom{ //remember about '=' when you initialize
 		Szczecin:    "Szczecin",
 		Koszalin:    Koszalin{},
 		Świnoujście: Świnoujście{Town: "Świnoujście", Population: 40},
 	}
-	WestPom.Świnoujście.Population = 39 //standard nested struct, reassign value
-	WestPom.float32 = 106.235           //promoted fields of nested struct (declaration Koszalin empty)
-	WestPom.string = "Koszalin"
-	fmt.Printf("%#v\nAccessing promoted fields: %#v %#v\n", WestPom.Świnoujście, WestPom.string, WestPom.float32)
+	westpom.Świnoujście.Population = 39 //standard nested struct, reassign value
+	westpom.float32 = 106.235           //promoted fields of nested struct (declaration Koszalin empty)
+	westpom.string = "Koszalin"
+	fmt.Printf("%#v\nAccessing promoted fields: %#v %#v\n", westpom.Świnoujście, westpom.string, westpom.float32)
 	//fmt.Println("%#v", WestPom.string)
 }
