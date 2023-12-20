@@ -24,3 +24,5 @@ func divide(num1, num2 float32) (float32, error) {
 	}
 	return num1 / num2, nil
 }
+
+//wrapped error
