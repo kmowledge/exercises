@@ -15,6 +15,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Value: %v, Type: %T\n", val, val)
+	fmt.Printf("Value: %v,  Type: %T\n", val, val)
 
 }
