@@ -1,3 +1,4 @@
 {
       "problems.decorations.enabled": true
+      "vscode-mysql.enableTelemetry": false
 }
