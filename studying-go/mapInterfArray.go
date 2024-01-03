@@ -3,6 +3,15 @@ package main
 import "fmt"
 
 func main() {
+	var ranking map[int8]int32
+	fmt.Println(ranking == nil)
+	fmt.Println(ranking[1])
+	ranking = make(map[int8]int32)
+	fmt.Println(ranking)
+	fmt.Println(ranking == nil)
+	ranking[1] = 326000
+	fmt.Println(ranking == nil)
+
 	var rank map[int8][2]interface{}
 	rank = make(map[int8][2]interface{})
 	rank[1] = [2]interface{}{36733, "BestPlayer"}
