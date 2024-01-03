@@ -34,11 +34,7 @@ func main() {
 
 	fmt.Println("Check if the key exists in the second ranking.")
 
-	// key1 := strconv.FormatInt(int64(key), 10)
-	// fmt.Scanf("%s", &key1)
-	// key = int8(len(key1))
 	var key1 int8
-	// fmt.Scan(&key1)
 	if _, err := fmt.Scan(&key1); err != nil {
 		fmt.Print("Value error, expected decimal (int8). One more try.")
 		fmt.Scan(&key1)
@@ -48,12 +44,4 @@ func main() {
 		return
 	}
 	fmt.Println("There is no such key:", key1, " in second ranking.")
-	// if val, ok := rank[1].([2]interface{}); ok && 36900 == val[0] && "UnknownPlayer" == val[1] {
-	// 	fmt.Println(rank[1])
-	// 	return
-	// }
-	// fmt.Println("There is no mentioned value on position 1 in rank.")
-
 }
-
-//./prog.go:12:16: invalid operation: rank[1] (map index expression of type [2]interface{}) is not an interface
