@@ -2,7 +2,25 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 )
+
+type Key int8
+
+func (k *Key) Scan() {
+	var s string
+	fmt.Scan(&s)
+	var l int64
+	var err error
+	for l, err = strconv.ParseInt(s, 10, 8); err != nil; {
+		fmt.Println(err)
+		fmt.Println("Couldn't use this input, enter a number from 0 to 127.")
+		fmt.Scan(&s)
+		l, err = strconv.ParseInt(s, 10, 8)
+	}
+	*k = Key(l) //Nie da się zrobić tego w jednym kroku. 2 błędy: non-name *k on left side of :=
+	//multiple-value strconv.ParseInt(s, 10, 8) (value of type (i int64, err error)) in single-value context
+}
 
 func main() {
 	var ranking map[int8]int32
@@ -44,4 +62,14 @@ func main() {
 		return
 	}
 	fmt.Println("There is no such key:", key1, " in second ranking.")
+
+	var key3 Key
+	//Making a custom int type (and function with pointer receiver) \
+	//allows to scan multiple times into the same address - no need for a new var every time.
+	key3.Scan()
+	fmt.Println(key3)
+
+	key3.Scan()
+	fmt.Println(key3)
+
 }
