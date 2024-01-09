@@ -19,7 +19,7 @@ func main() {
 	now := time.Now()
 	fmt.Println("Main starts.")
 
-	fmt.Printf("Execution of doWork started in %0.8ss.\n", time.Since(now))
+	fmt.Printf("Execution of doWork started in %0.8s.\n", time.Since(now))
 	for i := 0; i <= 10; i++ {
 		go doWork(i)
 	}
@@ -45,11 +45,13 @@ func main() {
 	go func() {
 		returnVar = goroutReturn(3)
 	}()
-	fmt.Println(`	Below we try to print values returned by anonVar and goroutReturn function
-	only goroutReturn will succeed,
-	it's a declared function, wrapped in anon func which assigns the output to an existing var.`)
-	fmt.Println(anonVar) //will print only address of the output
-	fmt.Println(returnVar)
+
+	fmt.Println(`	Below we try to print values returned by anonVar and goroutReturn function.
+	Only goroutReturn will succeed:
+	1. it's a declared function goroutReturn,
+	2. wrapped in anon func which assigns the output to an existing var returnVar.`)
+	fmt.Println(anonVar)   //prints address, because it holds function
+	fmt.Println(returnVar) //print int, because it holds return value of function
 	fmt.Println("Main finishes.")
 	fmt.Printf("Program executed in %0.8ss.\n", time.Since(now))
 }
