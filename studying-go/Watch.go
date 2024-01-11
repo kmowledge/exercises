@@ -5,26 +5,82 @@ import (
 	"time"
 )
 
-type Display struct {
-	Mode []string
-	Time time.Time //Time?
-}
-
-func (t Time) Clock() (hour, min, sec int)
-
-type Snap uint8
+type Mode uint8
+var m Mode
 
 const (
-	Button1Start Snap = iota
-	Button1Stop  Snap
-	Button1Reset Snap
-	Button2Mode  Snap
-	Button3Plus  Snap
-	Button4Minus Snap
+	ModeClock     Mode = iota
+	ModeStopwatch Mode = 1
+	ModeTimer     Mode = 2
 )
 
-func (w Watch) Snap(s Snap) {
-	switch s {
+type Display struct {
+	ModeName string
+	TimeVal time.Time //Time?
+}
+
+// var display Display = Display{
+// 	Mode: [3]string{"Clock", "Stopwatch", "Timer"},
+// 	Time: time.Time{},
+// }
+
+type Watch struct {
+	Clock     Display
+	Stopwatch Display
+	Timer     Display
+}
+
+const Watch.Clock.Display.ModeName = "Clock"
+var tv0 Watch.Clock.Display.TimeVal = "00:00:00"
+const Watch.Stopwatch.Display.ModeName = "Stopwatch"
+var tv1 Watch.Stopwatch.Display.TimeVal = "00:00:00"
+const Watch.Timer.Display.ModeName = "Timer"
+var tv2 Watch.Timer.Display.TimeVal = "00:00:00"
+
+// func (t Time) Clock() (hour, min, sec int)
+
+type Button uint8
+var b Button
+
+const (
+	Button1Start Button = iota
+	Button1Stop  Button
+	Button1Reset Button
+	Button2Mode  Button
+	Button2Set   Button
+	Button3Plus  Button
+	Button4Minus Button
+)
+
+
+func (w Watch) Mode() {
+	//gdzie ustawić wartości początkowe/fabryczne Mode:=0 - nie na początku funkcji przecież
+	Mode++
+	switch Mode {
+		case 0:
+			Watch.Clock.Display.ModeName = "Clock"
+			Watch.Clock.Display.TimeVal = ""
+		case 1:
+			Watch.Stopwatch.Display.ModeName = "Stopwatch"
+			Watch.Stopwatch.Display.TimeVal = "" //zachowana wartość z fmt.Sprint lub global var
+		case 2:
+			Watch.Timer.Display.ModeName = "Timer"
+			Watch.Timer.Display.TimeVal = ""
+		}
+	}
+
+func (d *Watch.Stopwatch.Display) Start() {
+	time.Since() //Start counting
+	
+}
+
+func (d *Display) Start() {
+	time.Start()
+}
+
+func (w Watch) Snap(b Button) {
+	b := fmt.Scanln(&b) //? b bez wcześniejszej deklarcji 
+	switch b {
 	case Button1Start:
 		fmt.Println("Start")
 		Start()
@@ -35,8 +91,12 @@ func (w Watch) Snap(s Snap) {
 		fmt.Println("Reset")
 		Reset()
 	case Button2Mode:
+		//przeskakuje pomiędzy 0 1 2
 		fmt.Println("2Mode")
 		Mode()
+	case Button2Set:
+		fmt.Println("2Set")
+		Set()
 	case Button3Plus:
 		fmt.Println("3Plus")
 		Plus()
@@ -46,20 +106,8 @@ func (w Watch) Snap(s Snap) {
 	}
 }
 
-type Mode uint8
-
-const (
-	Watch     Mode = iota
-	Stopwatch Mode
-	Timer     Mode
-)
-
-type Starter interface {
+type Starter interface { //Start robi zupełnie co innego zależnie od trybu, co jest wspólne?
 	Start()
-}
-
-func (w *Watch) Start() {
-	time.Start()
 }
 
 type Stopwatch interface {
@@ -76,5 +124,5 @@ type Timer interface {
 }
 
 func main() {
-
+	fmt.Println()
 }
