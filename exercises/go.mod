@@ -1,3 +1,3 @@
-module studying-go
+module go
 
 go 1.21.3
