@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"log"
@@ -8,7 +9,7 @@ import (
 )
 
 func main() {
-	response, err := http.Get("http://httpbin.org/get")
+	response, err := http.Post("http://httpbin.org/post", "text/plain", bytes.NewBufferString("example"))
 	if err != nil {
 		log.Fatal()
 	}
