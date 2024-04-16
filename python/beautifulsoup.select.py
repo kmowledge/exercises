@@ -59,26 +59,21 @@ destinFile.close()
 # OR derive the link url from button element and use it (change site without clicking the button).
 """
 driver = webdriver.Chrome()
-driver.quit()
-print("end of program")
+driver.get('https://quii.gitbook.io/learn-go-with-tests#read-the-book')
 
-"""
-print(browser.capabilities)
-print(browser.binary)
-browser.get('https://quii.gitbook.io/learn-go-with-tests#read-the-book')
+# <div class="flex flex-col md:flex-row mt-6 gap-2 max-w-3xl mx-auto page-api-block:ml-0"><a class="group text-sm p-2.5 flex gap-4 flex-1 flex-row items-center pr-4 border border-dark/3 rounded straight-corners:rounded-none hover:border-primary/6 dark:border-light/2 text-pretty dark:hover:border-primary-300/4 md:p-4 md:text-base" href="/learn-go-with-tests/go-fundamentals/install-go"><span class="flex flex-col flex-1"><span class="text-xs">Next</span><span class="text-dark dark:text-light/6 group-hover:text-primary line-clamp-2">Install Go</span></span><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" shape-rendering="geometricPrecision" viewBox="0 0 24 24" class="hidden w-5 h-5 stroke-dark/5 group-hover:stroke-primary dark:stroke-light/4 md:block" height="24" width="24" style="color:currentColor"><path d="M9 18l6-6-6-6"></path></svg></a></div>
 
-
-
-elems2 = ''
+# elems2 = ''
 try:
-      elems2 = WebBrowserwait(browser, 5).until(EC.presence_of_all_elements_located(By.PARTIAL_LINK_TEXT, 'learn-go-with-tests'))
-      elems2[-1].click()
-except NoSuchElementException as exce:
-      print("Couldn't find element:", exce)
+      elem2 = driver.find_element(By.CSS_SELECTOR,'body > div > div > div > div > main > div.flex.flex-col.md\:flex-row.mt-6.gap-2.max-w-3xl.mx-auto.page-api-block\:ml-0 > a')
+      elem2.click()
+      # elems2 = WebDriverWait(driver, 5).until(EC.presence_of_all_elements_located((By.PARTIAL_LINK_TEXT,"learn-go-with-tests")))
+      # elems2[-1].click()
+except Exception as e:
+      print("Couldn't find element:", e)
 finally:
-      print(browser.current_url)
-      browser.quit()
+      print(driver.current_url)
+      driver.quit()
 # Contain the actions (scraping, clicking button) in the loop, until there's no button identifier found.
 # (manually) Check the result.
 # Polish the code, maybe it needs one blank line between chapters for readibilty.
-"""
