@@ -3,6 +3,9 @@
 
 import bs4, requests
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 """
 res = requests.get('https://quii.gitbook.io/learn-go-with-tests#read-the-book')
@@ -24,7 +27,7 @@ for chunk in res.iter_content(100000):
       file.write(chunk)
 
 file.close()
-"""
+
 
 # Read html into soup object.
 # file = open('Manual,test-driven-go.html', 'rb') We have to open for reading, not writing as before.
@@ -54,23 +57,28 @@ destinFile.close()
 
 # Select html element that indicates it's the next chapter button. Click on it. Handle exception.
 # OR derive the link url from button element and use it (change site without clicking the button).
+"""
+driver = webdriver.Chrome()
+driver.quit()
+print("end of program")
 
-browser = webdriver.Firefox()
+"""
+print(browser.capabilities)
+print(browser.binary)
 browser.get('https://quii.gitbook.io/learn-go-with-tests#read-the-book')
 
 
 
 elems2 = ''
 try:
-      elems2 = browser.find_elements_by_partial_link_text('learn-go-with-tests')
-except:
-      print("Couldn't find element: %s" %elems2)
-
-elems2[-1].click()
-
-print(browser.current_url)
-
+      elems2 = WebBrowserwait(browser, 5).until(EC.presence_of_all_elements_located(By.PARTIAL_LINK_TEXT, 'learn-go-with-tests'))
+      elems2[-1].click()
+except NoSuchElementException as exce:
+      print("Couldn't find element:", exce)
+finally:
+      print(browser.current_url)
+      browser.quit()
 # Contain the actions (scraping, clicking button) in the loop, until there's no button identifier found.
 # (manually) Check the result.
 # Polish the code, maybe it needs one blank line between chapters for readibilty.
-print(type(elem.string))
+"""
