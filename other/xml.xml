@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<address>
+		<city>Birmingham</city>
+		<street>Jasper Road 3</street>
+	</address>
+	<main-librarian name="Charles Parrot"/>
+	<section name='XIX century'>
+		<book name='"Idiot"' writer='Fyodor Dostoyevksy'/>
+			<is-available>yes</is-available>
+	</section>
+	<XX century>
+		<book name="&quot;The Unbearable Lightness of Being&quot;, Milan Kundera"/>
+			<is-available>no</is-available>
+	</XX century>
+</library>
