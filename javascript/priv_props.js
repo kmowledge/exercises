@@ -6,25 +6,24 @@ var Player = (function() {
 
       function innerPlayer(name) {
             this.name = name; // public property
-            personal_score = 0; // private property
+            var personal_score = 0; // private property
+      
+
+            this.score = function() {
+                  team_score += 1;
+                  personal_score += 1;
+            };
+
+            this.getScore = function(arg) {
+                  if (arg == 'team') {
+                        return team_score;
+                  } else if (arg == 'personal') {
+                        return `${this.name} scored ${personal_score}.`;
+                  } else {
+                        return `Personal: ${personal_score} | Team: ${team_score}`;
+                  }
+            };
       }
-
-      innerPlayer.prototype.score = function() {
-            team_score += 1;
-            personal_score += 1;
-      };
-
-      // innerPlayer.prototype.personal_score = 0
-
-      innerPlayer.prototype.getScore = function(arg) {
-            if (arg == 'team') {
-                  return team_score;
-            } else if (arg == 'personal') {
-                  return `${this.name} scored ${personal_score}.`;
-            } else {
-                  return `Personal: ${this.personal_score} | Team: ${team_score}`;
-            }
-      };
 
       return innerPlayer
 }());
