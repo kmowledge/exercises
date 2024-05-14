@@ -2,7 +2,7 @@
 // team_score is a shared variable to all the Player instances.
 
 var Player = (function() {
-      var team_score = 0; // class-shared property variable
+      var team_score = 0; // private property, class-shared variable
 
       function innerPlayer(name) {
             this.name = name; // public property
