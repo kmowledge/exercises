@@ -14,8 +14,13 @@ print(type(data))
 str_data = str(data)
 print(type(str_data))
 
-zwrotki = re.findall(r"{\'localTraceId'\:.+?\'query\':.+?\'variables\':.+?\'response\':.+?}},", str_data)
-print(zwrotki[0])
-dict_data = dict(enumerate(str_data))
-print(dict_data) # out >> {0: '{', 1: "'", 2: 'r', 3: 'e', 4: 'q', 5: 'u', 6: 'e', 7: 's', 8: 't',
-# for chunk in "},".split()
+str_zwrotki = re.findall(r"{\'localTraceId'\:.+?\'query\':.+?\'variables\':.+?\'response\':.+?}},", str_data)
+print(str_zwrotki[0])
+
+
+zwrotki = re.findall(r"('\w+'\:\s[\'\{][\w\W]*?[\'\}],\s*)"g, str_data)
+'\w+'\:\s[\'\{][\w\W]*?[\'\}],\s* # matches items on query level
+
+
+
+# how to set option: dot matches all? in case a need to apply pattern also to JSON (with \t \n).
