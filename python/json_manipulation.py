@@ -18,13 +18,16 @@ str_zwrotki = re.findall(r"{\'localTraceId'\:.+?\'query\':.+?\'variables\':.+?\'
 # print(str_zwrotki[0])
 
 
-zwrotki = re.findall(r"('\w+'\:\s[\'\{][\w\W]*?[\'\}],?\s*)", str_data)
+zwrotki = re.findall(r"('\w+'\:\s([\'\{])[\w\W]*?\2,?\s*)", str_data)
 # '\w+'\:\s[\'\{][\w\W]*?[\'\}],\s* # matches items on query level
 [print(z) for z in zwrotki]
 print('\n\n\n\n')
 print(zwrotki)
 print('\n\n\n\n')
-print(data)
+print(type(data)) # <class 'dict'>
+# [print(k, v) for k, v in data.items()]
+# for k, v in data.items(): 
+#     print(f"{k}: {v}") #this fails to print dict items in separate lines, dunno why  
 
 ''' Problems:
 1. nested dicts are cut.
