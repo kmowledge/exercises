@@ -18,13 +18,13 @@ str_zwrotki = re.findall(r"{\'localTraceId'\:.+?\'query\':.+?\'variables\':.+?\'
 # print(str_zwrotki[0])
 
 
-zwrotki = re.findall(r"('\w+'\:\s([\'\{])[\w\W]*?\2,?\s*)", str_data)
-# '\w+'\:\s[\'\{][\w\W]*?[\'\}],\s* # matches items on query level
+# matches items (params of request/response)
+zwrotki = re.findall(r"('\w+'\:\s(?:({)|('))[\w\W]*?(?(2)}|(?(3)')),?\s*)", str_data)
 [print(z) for z in zwrotki]
 print('\n\n\n\n')
 print(zwrotki)
 print('\n\n\n\n')
-print(type(data)) # <class 'dict'>
+print(data) # <class 'dict'>
 # [print(k, v) for k, v in data.items()]
 # for k, v in data.items(): 
 #     print(f"{k}: {v}") #this fails to print dict items in separate lines, dunno why  
