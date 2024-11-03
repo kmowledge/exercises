@@ -35,3 +35,16 @@ if type(duplicates) != str:
             print(d, '\n')
 else:
       print(duplicates)
+
+# ↓↓↓↓↓↓↓↓↓↓↓↓ How I tried to do this before knowing the simple way above ↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+str_data = str(data)
+
+# matches items (params of request/response)
+items = re.findall(r"('\w+'\:\s?(?:({)|('))[\w\W]*?(?(2)}|(?(3)')),?\s?)", str_data)
+[print(z) for z in items] # items is a list of tuples
+print('\n\n\n\n')
+
+pattern = r"('\w+'\:\s(?:({)|('))[\w\W]*?(?(2)}|(?(3)')),?\s*)"
+rr_pairs = re.findall(pattern + r".*?" + pattern + r".*?" + pattern + r".*?" + pattern, str_data)
+[print(rr, '\n') for rr in rr_pairs]
