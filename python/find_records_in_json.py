@@ -1,4 +1,4 @@
-import requests, json, os, time
+import requests, json, os, re
 
 isbn_to_find = '8871351460'
 
@@ -34,10 +34,13 @@ def find_record(field: str, value: object):
     counter = 0
     result_name, i = '', 0 #inicjalizuję, żeby były dostępne na poziomie całej funkcji, a nie tylko w obrębie pętli
     for bib in data.get('bibs', []):
-        if bib.get(field) == value:
-            record_found = bib
-            counter += 1
-            result_name, i = name_next_result('./book-search-results', 'result')
+        if '[' in value:
+            find_nested(field)
+        else:
+            if bib.get(field) == value:
+                record_found = bib
+                counter += 1
+                result_name, i = name_next_result('./.outs/book-search-results', 'result')
     with open(f'./.outs/book-search-results/{result_name}{i}.json', 'wt', encoding='utf-8') as search_result:
         json.dump(bib, search_result, indent=4, ensure_ascii=False)
     
@@ -45,10 +48,15 @@ def find_record(field: str, value: object):
     print(f'\nLiczba pozycji w zbiorze z polem "{field}" o wartości "{value}" wynosi {counter}.')
     # return record_found - bez, bo odwołuję się do globalnej, find_record jest tu procedurą.
 
-def find_nested(): #zamiast tej funkcji należałoby rozwinąć mechanizm find_record, ale już pal licho.
-    marc["fields"][0]["001"]
+def find_nested(field, ):
+    params = re.findall(r'\[*?\]', field)
+    for param in range(params):
+        for type(param) == str
+
+marc["fields"][0]["001"]
+marc,fields,0,001 - podaj paramsy po przecinku i sprawdzaj po strukturze jsona, czy instanceof -> list czy dict. regexy usuń.
 
 # find_record('language', 'polski') działa
-# find_record('marc["fields"]["001"]', 'b000000323260') źle, trzeba odwołać się do elementu listy.
-# find_record('marc["fields"][0]["001"]', "b000000323260") tego Python nie zinterpretuje.
+# find_record('["marc"]["fields"]["001"]', 'b000000323260') źle, trzeba odwołać się do elementu listy.
+# find_record('["marc"]["fields"][0]["001"]', "b000000323260") tego Python nie zinterpretuje.
 find_record(find_nested(), "b000000323260")
