@@ -20,37 +20,42 @@ def split_data(data, chunk_size=10000):
 client = openai.OpenAI() 
 
 def get_most_frequent_numbers(data_chunk):
+    prompt = f"Analyze this chunk of numbers and identify the two most frequent numbers: {data_chunk}"
     
-    prompt = f'''
-    Identify two most frequent numbers in this dataset: {data_chunk}. Print them.
-    '''
-    
-    
-    
-    response = openai.Completion.create(
-        engine='gpt-3.5-turbo',  
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
         messages=[
-            {'role': 'system', 'content': 'You are a data analyzer. respond only with two numbers separated by comma'}
+            {"role": "system", "content": "You are a data analyzer. For each chunk, identify the two most frequent numbers and format your response as: 'For this chunk, the most frequent numbers are X and Y'"},
+            {"role": "user", "content": prompt}
         ],
         max_tokens=200,
         temperature=0.0
     )
 
-    
-    return response.choices[0].text.strip()
+    return response.choices[0].message.content.strip()
+current_dir = os.path.dirname(os.path.abspath(__file__))
+output_file = os.path.join(current_dir, '20mln_float_results.txt')
+
 frequent_numbers = []
+with open(output_file, 'w', encoding='utf-8') as f:  
+    f.write("Analysis Results:\n\n")
+    print(f"Created output file at: {output_file}")  
 
 for chunk in split_data(data):
     result = get_most_frequent_numbers(chunk)
-    frequent_numbers.append(result)
-all_results = []
-for result in frequent_numbers:
+    print(result)  
     
-    nums = result.split(',')
-    all_results.extend([float(num.strip()) for num in nums])
-counter = Counter(all_results)
+    
+    with open(output_file, 'a', encoding='utf-8') as f:
+        f.write(f"{result}\n")
+    
+    
+    numbers = [float(num) for num in result.split() if num.replace('.','').isdigit()]
+    frequent_numbers.extend(numbers)
+counter = Counter(frequent_numbers)
 most_common = counter.most_common(2)
-print("\nFrequent numbers from each chunk:")
-for result in frequent_numbers:
-    print(result)
-print(f"Global result: Two most frequent numbers are: {most_common[0][0]} and {most_common[1][0]}")
+final_result = f"\nGlobal result: The two most frequent numbers across all chunks are {most_common[0][0]} and {most_common[1][0]}"
+print(final_result)
+with open(output_file, 'a', encoding='utf-8') as f:
+    f.write(final_result)
+    print(f"All results saved to: {output_file}")
