@@ -1,0 +1,191 @@
+{
+  "requestResponses": [
+    {
+      "localTraceId": "",
+      "query": "query getBlikCommission{getBlikCommission}",
+      "variables": {},
+      "response": {
+        "data": {
+          "getBlikCommission": 1.0
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getMatchedText($text: String!, $type: String!) { getMatchedText(text: $text, type: $type)}",
+      "variables": {
+        "text": "test@company.pl",
+        "type": "e-mail"
+      },
+      "response": {
+        "data": {
+          "getMatchedText": ["test@company.pl"]
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getMatchedText($text: String!, $type: String!) { getMatchedText(text: $text, type: $type)}",
+      "variables": {
+        "text": "to-moj-e-mail",
+        "type": "e-mail"
+      },
+      "response": {
+        "data": {
+          "getMatchedText": []
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getMatchedText($text: String!, $type: String!) { getMatchedText(text: $text, type: $type)}",
+      "variables": {
+        "text": "111112",
+        "type": "blik"
+      },
+      "response": {
+        "data": {
+          "getMatchedText": ["111112"]
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getMatchedText($text: String!, $type: String!) { getMatchedText(text: $text, type: $type)}",
+      "variables": {
+        "text": "123",
+        "type": "blik"
+      },
+      "response": {
+        "data": {
+          "getMatchedText": []
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getMatchedText($text: String!, $type: String!) { getMatchedText(text: $text, type: $type)}",
+      "variables": {
+        "text": "111113",
+        "type": "blik"
+      },
+      "response": {
+        "data": {
+          "getMatchedText": ["111113"]
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getMatchedText($text: String!, $type: String!) { getMatchedText(text: $text, type: $type)}",
+      "variables": {
+        "text": "test@company.pl",
+        "type": "e-mail"
+      },
+      "response": {
+        "data": {
+          "getMatchedText": ["test@company.pl"]
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getMatchedText($text: String!, $type: String!) { getMatchedText(text: $text, type: $type)}",
+      "variables": {
+        "text": "111113",
+        "type": ""
+      },
+      "response": {
+        "data": {
+          "getMatchedText": ["111113"]
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getBlikPaymentStatus($paymentId: String!){getBlikPaymentStatus(paymentId: $paymentId)}",
+      "variables": {
+        "paymentId": "112"
+      },
+      "response": {
+        "data": {
+          "getBlikPaymentStatus": "completed"
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getBlikPaymentStatus($paymentId: String!){getBlikPaymentStatus(paymentId: $paymentId)}",
+      "variables": {
+        "paymentId": "222"
+      },
+      "response": {
+        "data": {
+          "getBlikPaymentStatus": "pending"
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getBlikPaymentStatus($paymentId: String!){getBlikPaymentStatus(paymentId: $paymentId)}",
+      "variables": {
+        "paymentId": "113"
+      },
+      "response": {
+        "data": {
+          "getBlikPaymentStatus": "timeout"
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getBlikPaymentStatus($paymentId: String!){getBlikPaymentStatus(paymentId: $paymentId)}",
+      "variables": {
+        "paymentId": "112"
+      },
+      "response": {
+        "data": {
+          "getBlikPaymentStatus": "timeout"
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getBlikPaymentStatus($paymentId: String!){getBlikPaymentStatus(paymentId: $paymentId)}",
+      "variables": {
+        "paymentId": "111"
+      },
+      "response": {
+        "data": {
+          "getBlikPaymentStatus": "incorrect"
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getMatchedText($text: String!, $type: String!) { getMatchedText(text: $text, type: $type)}",
+      "variables": {
+        "text": "22211",
+        "type": "blik"
+      },
+      "response": {
+        "data": {
+          "getMatchedText": ["22211"]
+        }
+      }
+    },
+    {
+      "localTraceId": "",
+      "query": "query getMatchedText($text: String!, $type: String!) { getMatchedText(text: $text, type: $type)}",
+      "variables": {
+        "text": "111222",
+        "type": "blik"
+      },
+      "response": {
+        "data": {
+          "getMatchedText": ["111222"]
+        }
+      }
+    }
+  ]
+}
