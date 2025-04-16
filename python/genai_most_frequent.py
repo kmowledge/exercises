@@ -1,48 +1,56 @@
-# Poniższy plik, o nazwie “data.zip” (około 100MB) to archiwum w formacie ZIP, które zawiera jeden plik tekstowy.
-# W tym pliku w każdej linii znajduje się jedna liczba rzeczywista w zakresie od -180 do 180. Aby poznać rozwiązanie utwórz histogram ilości wystąpień każdej z liczb.
-# Rozwiązaniem jest ciąg znaków zawierający dwie najczęściej występujące liczby w danych oddzielone przecinkiem.
 import zipfile
 import os
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-# from openai import OpenAI
 import openai
-# from dotenv import load_dotenv
-
-# with zipfile.ZipFile('data.zip', 'r') as zip_ref:
-#     zip_ref.extractall('ins')
-
-
+import numpy as np
+from dotenv import load_dotenv
+from collections import Counter
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
+with zipfile.ZipFile('data.zip', 'r') as zip_ref:
+    zip_ref.extractall('ins')
 zip_contents = os.listdir('ins')
 
-with open(f'ins/{zip_contents[0]}', 'r') as data:
-    data = data.readlines()
-data = np.array(data)
-# data.shape (20000000,)
+with open(f'ins/{zip_contents[0]}', 'r') as f:
+    data = f.readlines()
+data = np.array(data, dtype=float)
+def split_data(data, chunk_size=10000):
+    for i in range(0, len(data), chunk_size):
+        yield data[i:i + chunk_size]
 
-# fig, ax = plt.subplots()
-# ax.hist({data}, bins=np.unique({data}).size)
-# plt.show()
+client = openai.OpenAI() 
 
-# load_dotenv()
-# client = OpenAI(api_key = os.getenv('OPENAI_API_KEY'))
-openai.api_key = os.getenv("OPENAI_API_KEY")
+def get_most_frequent_numbers(data_chunk):
+    
+    prompt = f'''
+    Identify two most frequent numbers in this dataset: {data_chunk}. Print them.
+    '''
+    
+    
+    
+    response = openai.Completion.create(
+        engine='gpt-3.5-turbo',  
+        messages=[
+            {'role': 'system', 'content': 'You are a data analyzer. respond only with two numbers separated by comma'}
+        ],
+        max_tokens=200,
+        temperature=0.0
+    )
 
-prompt = f'''
-Identify two most frequent numbers in this dataset: {data}. Print them.
-'''
+    
+    return response.choices[0].text.strip()
+frequent_numbers = []
 
-# response = client.chat.completions.create(
-response = openai.Completion.create(
-    engine='gpt-4',
-    prompt=prompt,
-    max_tokens=200,
-    temperature=0.0
-    # messages=[
-    #     {'role': 'user', 'content': prompt},
-    #     {'role': 'user', 'content': ': '}
-    # ]
-)
-
-# if I don't split data into 10k chunks the calculation of 2mln elements array will yield bill of $6000 compared to $12 if I split them.
+for chunk in split_data(data):
+    result = get_most_frequent_numbers(chunk)
+    frequent_numbers.append(result)
+all_results = []
+for result in frequent_numbers:
+    
+    nums = result.split(',')
+    all_results.extend([float(num.strip()) for num in nums])
+counter = Counter(all_results)
+most_common = counter.most_common(2)
+print("\nFrequent numbers from each chunk:")
+for result in frequent_numbers:
+    print(result)
+print(f"Global result: Two most frequent numbers are: {most_common[0][0]} and {most_common[1][0]}")
